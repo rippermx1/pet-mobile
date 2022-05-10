@@ -1,4 +1,0 @@
-repository "pet-mobile@carlos_valdes@cloud"
-  path "/"
-    br "/main"
-    co "/main"

@@ -14,6 +14,8 @@ public class Pet : ScriptableObject
     public int feed = 50; // Go to zero means dead
     public int happiness = 50; // Go to zero means dead
     public int energy = 100;
+    public int mana = 100;
+    public Skill[] skills;
 
     // Levels
     // Level 5:  Achieve

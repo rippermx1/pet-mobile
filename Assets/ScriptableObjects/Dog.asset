@@ -21,3 +21,7 @@ MonoBehaviour:
   feed: 50
   happiness: 100
   energy: 100
+  mana: 100
+  skills:
+  - {fileID: 11400000, guid: 9ec3420cb22bf4348b5d8fda947940e1, type: 2}
+  - {fileID: 11400000, guid: 69d9152cb75fa924691a2b8b6cdc38dc, type: 2}
