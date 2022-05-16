@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WaypointMover : MonoBehaviour
 {
-    [SerializeField] private Waypoints waypoints;
+    public Waypoints waypoints;
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float distanceThreshold = 0.1f;
 
@@ -22,15 +22,20 @@ public class WaypointMover : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var distance = moveSpeed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, currentWaypoint.position, distance);
-        if (Vector3.Distance(transform.position, currentWaypoint.position) < distanceThreshold) {
-            updateWaypoint();
-            lookAtWaypoint();
+        if (currentWaypoint != null)
+        {
+            var distance = moveSpeed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, currentWaypoint.position, distance);
+            if (Vector3.Distance(transform.position, currentWaypoint.position) < distanceThreshold)
+            {
+                updateWaypoint();
+                lookAtWaypoint();
+            }
         }
     }
 
-    private void updateWaypoint() {
+    private void updateWaypoint()
+    {
         currentWaypoint = waypoints.GetNextWaypoint(currentWaypoint);
     }
 

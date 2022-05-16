@@ -9,19 +9,22 @@ public class Waypoints : MonoBehaviour
     [SerializeField] private float waipointSize = 1f;
     private void OnDrawGizmos()
     {
-        Debug.Log("TEST");
         foreach (Transform t in transform)
         {
             Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(t.position, 1f);
         }
 
-        Gizmos.color = Color.red;
+        if (gameObject.tag == "WaypointsPlayerLeft" || gameObject.tag == "WaypointsPlayerRight")
+            Gizmos.color = Color.red;
+        if (gameObject.tag == "WaypointsIALeft" || gameObject.tag == "WaypointsIARight")
+            Gizmos.color = Color.blue;
+
         for (int i = 0; i < transform.childCount - 1; i++)
         {
             Gizmos.DrawLine(transform.GetChild(i).position, transform.GetChild(i + 1).position);
         }
-        Gizmos.DrawLine(transform.GetChild(transform.childCount - 1).position, transform.GetChild(0).position);
+        // Gizmos.DrawLine(transform.GetChild(transform.childCount - 1).position, transform.GetChild(0).position);
     }
 
     public Transform GetNextWaypoint(Transform currentWaypoint) {
@@ -32,9 +35,11 @@ public class Waypoints : MonoBehaviour
         {
             return transform.GetChild(currentWaypoint.GetSiblingIndex() + 1);
         }
+        return null;
+        /*
         else 
         {
             return transform.GetChild(0);
-        }
+        }*/
     }
 }

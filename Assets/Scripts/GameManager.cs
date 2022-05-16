@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
 
     public Pet pet;
 
+    public GameObject catPrefab;
+
     private void Awake()
     {
         if (instance == null)

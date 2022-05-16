@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - waypoints
+  - WaypointsPlayerLeft
+  - WaypointsPlayerRight
+  - WaypointsIARight
+  - WaypointsIALeft
   layers:
   - Default
   - TransparentFX
@@ -13,9 +17,9 @@ TagManager:
   - Water
   - UI
   - 
-  - 
-  - 
-  - 
+  - PlayerGround
+  - IAGround
+  - Ground
   - 
   - 
   - 
