@@ -5,10 +5,10 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private CharacterType characterType;
-    // Start is called before the first frame update
+    [HideInInspector] public Card[] cards;
     void Start()
     {
-        
+        cards = CardCollection.instance.cards;
     }
 
     // Update is called once per frame

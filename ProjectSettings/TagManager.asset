@@ -9,6 +9,11 @@ TagManager:
   - WaypointsPlayerRight
   - WaypointsIARight
   - WaypointsIALeft
+  - Skill
+  - Info
+  - Card
+  - PlayerCards
+  - IACards
   layers:
   - Default
   - TransparentFX

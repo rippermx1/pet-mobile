@@ -8,4 +8,5 @@ public class Skill : ScriptableObject
     public float skillCooldown = 0.5f;
     public string skillName;
     public bool isActive;
+    public Texture2D icon;
 }

@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour
 
     public GameObject catPrefab;
 
+    private GameObject[] playerCards;
+    private GameObject[] iaCards;
+
     private void Awake()
     {
         if (instance == null)
@@ -19,6 +22,18 @@ public class GameManager : MonoBehaviour
         else
         {
             Destroy(this);
+        }
+    }
+
+    private void Start()
+    {
+        playerCards = GameObject.FindGameObjectsWithTag("PlayerCards");
+        if (playerCards.Length > 0)
+        {
+            for (int i = 0; i < playerCards.Length; i++)
+            {
+                playerCards[i].GetComponentInChildren<TMPro.TMP_Text>().text = CardCollection.instance.cards[i].cardName;
+            }
         }
     }
 
