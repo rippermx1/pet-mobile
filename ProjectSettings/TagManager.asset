@@ -14,6 +14,9 @@ TagManager:
   - Card
   - PlayerCards
   - IACards
+  - Zone_1
+  - Zone_2
+  - Zone_3
   layers:
   - Default
   - TransparentFX

@@ -17,21 +17,6 @@ public class CardCollection : MonoBehaviour
         {
             Destroy(this);
         }
-
-        // Test Cards
-        loadTestMinions();
-    }
-
-    public void loadTestMinions() {
-        for (int i = 0; i < 5; i++)
-        {
-            Card minion = ScriptableObject.CreateInstance<Card>();
-            minion.cardName = "Minion " + i;
-            minion.cardCost = 10;
-            minion.history = "Minion TEST " + i;
-            cards[i] = minion;
-            Debug.Log(cards[i]);
-        }
     }
 
     void Start()

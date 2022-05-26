@@ -12,4 +12,5 @@ public class Card : ScriptableObject
     public Texture2D cardIcon;
     public string history;
     public string type;
+    public float price;
 }

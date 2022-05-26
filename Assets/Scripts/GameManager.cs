@@ -25,13 +25,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    private IEnumerator Start()
     {
+        yield return StartCoroutine(ServerManager.instance.makeRequest(ServerManager.LOCAL_URL + ServerManager.GET_CARDS));
+
         playerCards = GameObject.FindGameObjectsWithTag("PlayerCards");
         if (playerCards.Length > 0)
         {
             for (int i = 0; i < playerCards.Length; i++)
             {
+                Debug.Log(CardCollection.instance.cards[i].cardName);
                 playerCards[i].GetComponentInChildren<TMPro.TMP_Text>().text = CardCollection.instance.cards[i].cardName;
             }
         }

@@ -49,7 +49,7 @@ public class GroundController : MonoBehaviour
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit[] hits = Physics.RaycastAll(ray);
 
-        if (DragDropUI.instance.onDrag) {
+        if (CardsController.instance.onDrag) {
             foreach (var hit in hits)
             {
                 if (hit.collider.gameObject.layer != LayerMask.NameToLayer("PlayerGround") && hit.collider.gameObject.layer != LayerMask.NameToLayer("IAGround"))
@@ -78,22 +78,22 @@ public class GroundController : MonoBehaviour
 
                 if (hit.point.x < 0)
                 {
-                    Debug.Log("Left Player");
+                    // Debug.Log("Left Player");
                     waypointToUse = "WaypointsPlayerLeft";
                 }
                 if (hit.point.x > 0)
                 {
-                    Debug.Log("Right Player");
+                    // Debug.Log("Right Player");
                     waypointToUse = "WaypointsPlayerRight"; 
                 }
                 break;
             }
         }
 
-        if (DragDropUI.instance.onPointerUp) {
+        if (CardsController.instance.onPointerUp) {
             setDefaultGround();
             Instantiate(GameManager.instance.catPrefab);
-            DragDropUI.instance.onPointerUp = false;
+            CardsController.instance.onPointerUp = false;
         }
     }
 

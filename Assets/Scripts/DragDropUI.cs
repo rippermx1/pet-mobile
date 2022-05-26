@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class DragDropUI : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
@@ -10,22 +11,8 @@ public class DragDropUI : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
     public string destinationTag = "DropArea";
     Vector3 initialPosition;
 
-    [HideInInspector] public bool onDrag;
-    [HideInInspector] public bool onPointerUp;
-    [HideInInspector] public bool onPointerDown;
-    public static DragDropUI instance { get; private set; }
-
     void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(this);
-        }
-
         if (gameObject.GetComponent<CanvasGroup>() == null)
             gameObject.AddComponent<CanvasGroup>();
         canvasGroup = gameObject.GetComponent<CanvasGroup>();
@@ -38,7 +25,8 @@ public class DragDropUI : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
         Debug.Log("OnDrag");
         transform.position = Input.mousePosition + offset;
 
-        eventStateHandler(true, false, false);
+        CardsController.instance.eventStateHandler(true, false, false);
+        CardsController.instance.horizontalLayoutGroup.enabled = false;
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -49,7 +37,7 @@ public class DragDropUI : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
         canvasGroup.alpha = 0.5f;
         canvasGroup.blocksRaycasts = false;
 
-        eventStateHandler(false, false, true);
+        CardsController.instance.eventStateHandler(false, false, true);
     }
 
     public void OnPointerUp(PointerEventData eventData)
@@ -65,12 +53,48 @@ public class DragDropUI : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
         canvasGroup.alpha = 1;
         canvasGroup.blocksRaycasts = true;
 
-        eventStateHandler(false, true, false);
+        CardsController.instance.eventStateHandler(false, true, false);
+        CardsController.instance.horizontalLayoutGroup.enabled = true;
+
+        AbilityUsed();
     }
 
-    private void eventStateHandler(bool _onDrag, bool _onPointerUp, bool _onPointerDown) {
-        onDrag = _onDrag;
-        onPointerUp = _onPointerUp;
-        onPointerDown = _onPointerDown;
+
+    #region COOLDOWN
+    public GameObject cooldownImage;
+    public GameObject cooldownText;
+    public float cooldown = 5;
+    bool isCooldown = false;
+    private void AbilityUsed()
+    {
+        if (isCooldown)
+            return;
+        isCooldown = true;
+        cooldownImage.SetActive(true);
+        cooldownText.SetActive(true);
+
+        cooldownImage.GetComponent<Image>().fillAmount = 1;
+
+        Debug.Log("AbilityUsed");
+        StartCoroutine(LerpCooldownValue());
     }
+
+    private IEnumerator LerpCooldownValue()
+    {
+        float currentTime = 0;
+        while (currentTime < cooldown)
+        {
+            cooldownImage.GetComponent<Image>().fillAmount = Mathf.Lerp(1, 0, currentTime / cooldown);
+            
+            currentTime += Time.deltaTime;
+            cooldownText.GetComponent<TMPro.TMP_Text>().text = currentTime.ToString();
+            yield return null;
+        }
+        cooldownImage.GetComponent<Image>().fillAmount = 0;
+        isCooldown = false;
+
+        cooldownImage.SetActive(false);
+        cooldownText.SetActive(false);
+    }
+    #endregion
 }
